@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .s1 {
+            color: black;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 8pt;
+        }
+
+        .s2 {
+            color: black;
+            font-family: Arial, sans-serif;
+            font-style: italic;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 6pt;
+        }
+
+        .s3 {
+            color: black;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 6pt;
+        }
+
+        .s4 {
+            color: black;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 6pt;
+        }
+
+        .s5 {
+            color: black;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11.5pt;
+        }
+
+        p {
+            color: black;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 9pt;
+            margin: 0pt;
+        }
+
+        .row {
+            display: flex;
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+
+        .column {
+            flex: 50%;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        .thStyle {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #ddd;
+        }
+
+        .tdStyleTable {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-right: 1px solid #ddd;
+        }
+
+        .tdStyleTableTop {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row">
+        <table style="border-bottom: 0px;" cellspacing="0">
+            <tr>
+                <td>
+                    <p class="s1" style="padding-top: 4pt;text-align: center;">TAX INVOICE</p>
+                    <p class="s2" style="padding-top: 4pt;text-align: center;">Issued in accordance with Section 31 of the CGST Act, 2017 read with Rule 46 of the CGST Rules, 2017</p>
+                    <p class="s2" style="padding-bottom: 2pt;padding-right: 2pt; text-align: right;">ORIGINAL FOR RECIPIENT</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <table style="border-bottom: 0px;border-right: 0px;" cellspacing="0">
+                <tr style="height:100pt">
+                    <td>
+                        <p class="s3" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            {{vendorName}},</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                            {{vendorAddress}} -</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                            {{vendorState}}, State Code : {{vendorStateCode}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                            GSTIN/UIN : {{vendorGSTIN}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                            PAN : {{vendorPAN}}</p>
+                        <p></p>
+                        <br />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="column">
+            <table style="border-bottom: 0px;" cellspacing="0">
+                <tr style="height:100pt">
+                    <td>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Invoice Number :</p>
+                        <p class="s3" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">{{invoiceNumber}}</p>
+                        <!-- <br /> -->
+                        <p></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Delivery Note(s) :</p>
+                        <p class="s3" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">{{deliveryNotes}}</p>
+                        <!-- <br /> -->
+                        <p></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 5pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Order Number :</p>
+                        <p class="s3" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">{{orderNumber}}</p>
+                        <!-- <br /> -->
+                        <p></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Despatch Doc. No. :</p>
+                        <p></p>
+                        <!-- <br /> -->
+                        <p></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 5pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Mode/Terms Payment : </p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </td>
+                    <td>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Date
+                            of Invoice :</p>
+                        <p class="s3" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">{{invoiceDate}}</p>
+                        <!-- <br /> -->
+                        <p></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Delivery Note Date :</p>
+                        <p class="s3" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">{{orderDate}}</p>
+                        <!-- <br /> -->
+                        <p></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 5pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Date
+                            :</p>
+                        <p class="s3" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">{{orderDate}}</p>
+                        <!-- <br /> -->
+                        <p></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Despatched through :</p>
+                        <p></p>
+                        <!-- <br /> -->
+                        <p></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 5pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Destination :</p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="column">
+            <table style="border-bottom: 0px;" cellspacing="0">
+                <tr style="height:100pt">
+                    <td>
+                        <p class="s3" style="padding-left: 4pt;padding-top: 4pt;text-align: left;">Buyer (Billed to)</p>
+                        <p><br /></p>
+                        <p class="s3" style="padding-left: 4pt;text-align: left;">{{branchName}} ({{branchState}})</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">{{branchAddress}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            {{branchCity}} {{branchPIN}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">{{branchState}},
+                            State Code : {{branchStateCode}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">GSTIN/UIN :
+                            {{branchGSTIN}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">PAN : {{branchPAN}}
+                        </p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Place of Supply :
+                            {{placeOfSupply}}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="column">
+            <table style="border-bottom: 0px;border-left: 0px;" cellspacing="0">
+                <tr style="height:100pt">
+                    <td>
+                        <p class="s3" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Consignee (Deliver
+                            To)</p>
+                        <p><br /></p>
+                        <p class="s3" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">{{endCustomerName}}
+                        </p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                            {{endCustomerAddress}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">{{endCustomerCity}}
+                            {{endCustomerPIN}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">{{endCustomerState}},
+                            State Code : {{endCustomerStateCode}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">GSTIN/UIN
+                            :{{endCustomerGSTIN}}</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Contact :
+                            {{endCustomerContactNumber}}</p>
+                        <p></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <table style="border-bottom: 0px;" cellspacing="0">
+            <colgroup>
+                <col span="1" style="width: 5%;">
+                <col span="1" style="width: 15%;">
+                <col span="1" style="width: 30%;">
+                <col span="1" style="width: 8%;">
+                <col span="1" style="width: 8%;">
+                <col span="1" style="width: 8%;">
+                <col span="1" style="width: 8%;">
+                <col span="1" style="width: 9%;">
+                <col span="1" style="width: 9%;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">S.No.</th>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">Part Number
+                    </th>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">Part
+                        Description</th>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">HSN / SAC
+                    </th>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">Qty</th>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">Unit</th>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">Rate</th>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">Disc.</th>
+                    <th class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each materials}}
+                <tr>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4">{{this.SRNo}}</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3">{{this.materialCode}}</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3">{{this.materialDesc}}</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4">{{this.hsn}}</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4">{{this.Quantity}}</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4">{{this.UOM}}</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4">{{this.rate}}</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4">{{this.Disc}}</p>
+                    </td>
+                    <td style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4">{{this.total}}</p>
+                    </td>
+                </tr>
+                {{/each}}
+                <tr>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTableTop" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">{{subTotal}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"><br /></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3"><br /></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3"><br /></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"><br /></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"><br /></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"><br /></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"><br /></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"><br /></p>
+                    </td>
+                    <td style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3"><br /></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">CGST</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">{{CGST}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">SGST / UTGST</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">{{SGST}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">IGST</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">{{IGST}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s3"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">Round Off</p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-left: 4pt;text-align: left;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td class="tdStyleTable" style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s4"></p>
+                    </td>
+                    <td style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">
+                        <p class="s3">{{roundOff}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;"></td>
+                    <td class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;"></td>
+                    <td class="s3 thStyle"
+                        style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">Total</td>
+                    <td class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;"></td>
+                    <td class="s3 thStyle"
+                        style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">{{totalUnit}}</td>
+                    <td class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;"></td>
+                    <td class="s3 thStyle" style="padding-top: 4pt;padding-bottom: 4pt;text-align: center;"></td>
+                    <td class="s3 thStyle"
+                        style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">{{totalDiscount}}</td>
+                    <td class="s3 thStyle"
+                        style="padding-top: 4pt;padding-bottom: 4pt;padding-right: 4pt;text-align: right;">{{GrandTotal}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><br /></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table style="border-bottom: 0px;" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td>
+                        <div style="display: flex;justify-content: space-between;">
+                            <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Total Invoice
+                                Value (figures in INR) : <b>{{totalInvoiceValueInFigures}}</p>
+                            <p class="s2" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">E. &amp;O.E</p>
+                        </div>
+
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Total Invoice Value
+                            (words in INR) : <b>{{totalInvoiceValueInWords}} ONLY</b></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Whether tax is payable on reverse charge basis: <b>NO</b></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table style="border-bottom: 0px;" cellspacing="0">
+            <colgroup span="8" width="64"></colgroup>
+            <tr>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" rowspan=2 align="center" valign=middle>HSN/SAC</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" rowspan=2 align="center" valign=middle>Taxable Value</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" colspan=2 align="center" valign=middle>Central Tax</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" colspan=2 align="center" valign=middle>State / Union Territory Tax</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" colspan=2 align="center" valign=middle>Integrated Tax</th>
+            </tr>
+            <tr>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" align="center" valign=middle><Rate</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" align="center" valign=middle>Amount</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" align="center" valign=middle>Rate</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" align="center" valign=middle>Amount</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" align="center" valign=middle>Rate</th>
+                <th class="s3 thStyle" style="padding-top: 2pt;padding-bottom: 2pt;" align="center" valign=middle>Amount</th>
+            </tr>
+            {{!-- <html>{{hsnLists}}</html> --}}
+            {{#each hsnLists}}
+            <tr>
+                <td class="thStyle" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">
+                    <p class="s4">{{this.HSN}}</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s4">{{this.taxableValue}}</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s4">9%</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s4">{{this.CGST}}</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s4">9%</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s4">{{this.SGST}}</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s4">0%</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s4">{{this.IGST}}</p>
+                </td>
+            </tr>
+            {{/each}}
+            <tr>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s3">Total</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
+                    <p class="s3">{{subTotal}}</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;" colspan=2 align="right" valign=middle>
+                    <p class="s3">{{CGST}}</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;" colspan=2 align="right" valign=middle>
+                    <p class="s3">{{SGST}}</p>
+                </td>
+                <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;" colspan=2 align="right" valign=middle>
+                    <p class="s3">{{IGST}}</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="row">
+        <table style="border-top: 0px;border-bottom: 0px;" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Tax Amount (words in INR) : <b>{{taxAmountInWords}} ONLY</b></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Company&#39;s Bank Details</p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Bank Name : <b>{{bankName}}</b></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">A/c No. : <b>{{accountNumber}}</b></p>
+                        <p></p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Branch &amp;IFS Code : <b>{{branchIFSCCode}}</b></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table style="border-bottom: 0px;" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td>
+                        <p class="s3" style="padding-top: 4pt;padding-left: 4pt;padding-bottom: 4pt; text-align: left;"><b>Terms</b></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <table cellspacing="0">
+            <colgroup>
+                <col span="1" style="width: 60%;">
+                <col span="1" style="width: 40%;">
+            </colgroup>
+            <tbody>
+                <tr  style="height:50pt">
+                    <td class="thStyle">
+                        <p class="s3" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Declaration :</p>
+                        <p class="s4" style="padding-left: 4pt;text-align: left;">Declared that this invoice shows the actual price of the goods and all the particulars are true and correct</p>
+                        <br /><br />
+                    </td>
+                    <td class="thStyle">
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">For {{vendorName}}</p>
+                        <p ><br /><br /></p>
+                        <p class="s4" style="padding-left: 4pt;text-align: left;">Digitally Signed</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

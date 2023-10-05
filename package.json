@@ -1,0 +1,16 @@
+{
+  "name": "invoicepdfgeneration",
+  "version": "1.0.0",
+  "description": "Invoice PDF Generation",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dhananjay Choubey",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "pdf-master": "^1.1.0"
+  }
+}
