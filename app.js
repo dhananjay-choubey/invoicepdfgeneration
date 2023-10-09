@@ -320,19 +320,21 @@ async function getData(startDate, endDate, sSegment) {
     });
   }
 
-  async function finalpdfGeneration(sData, sStartDate, sEndDate, sSegment) {
+  async function finalpdfGenerationOriginals(sData, sStartDate, sEndDate, sSegment) {
       return new Promise((resolve, reject) => {
 
-        const folderName = `C:\/Invoices\/${sStartDate.substring(4, 6)}${sStartDate.substring(0, 4)}${sSegment}`;
+        const folderName = `C:\/Invoices\/${sStartDate.substring(4, 6)}${sStartDate.substring(0, 4)}${sSegment}\/Originals`;
 
         try {
           if (!fs.existsSync(folderName)) {
-            fs.mkdirSync(folderName);
+            fs.mkdirSync(folderName, { recursive: true });
           }
         } catch (err) {
           console.error(err);
           reject(err);
         }
+
+        sData.invoiceType = "ORIGINAL FOR RECIPIENT";
 
         let options = {
           displayHeaderFooter: false,
@@ -341,14 +343,80 @@ async function getData(startDate, endDate, sSegment) {
           path: `${folderName}/${sData.DocumentNumber}.PDF`
         };
         let sPDF = pdfMaster.generatePdf("template.hbs", sData, options);
-        updateFolderLocation(sData.invoiceNumber, sData.DocumentNumber, `${folderName}/${sData.DocumentNumber}.PDF`);
+        updateFolderLocation(sData.DocumentNumber, `${folderName}/${sData.DocumentNumber}.PDF`, "O");
         resolve(sPDF);
         
       });
     }
 
-    async function updateFolderLocation(invoiceNumber, DocumentNumber, folderName){
-      let sqlquery = `UPDATE invoice_generation_table SET InvoicePdfStatus = 'X', InvoicePdfLocation = '${folderName}' WHERE DocumentNumber = '${DocumentNumber}';`;
+    async function finalpdfGenerationDuplicates(sData, sStartDate, sEndDate, sSegment) {
+      return new Promise((resolve, reject) => {
+
+        const folderName = `C:\/Invoices\/${sStartDate.substring(4, 6)}${sStartDate.substring(0, 4)}${sSegment}\/Duplicates`;
+
+        try {
+          if (!fs.existsSync(folderName)) {
+            fs.mkdirSync(folderName, { recursive: true });
+          }
+        } catch (err) {
+          console.error(err);
+          reject(err);
+        }
+
+        sData.invoiceType = "DUPLICATE FOR TRANSPORTER";
+
+        let options = {
+          displayHeaderFooter: false,
+          format: "A4",
+          margin: { top: "30px", bottom: "30px", left: "30px", right: "30px" },
+          path: `${folderName}/${sData.DocumentNumber}.PDF`
+        };
+        let sPDF = pdfMaster.generatePdf("template.hbs", sData, options);
+        updateFolderLocation(sData.DocumentNumber, `${folderName}/${sData.DocumentNumber}.PDF`, "D");
+        resolve(sPDF);
+        
+      });
+    }
+
+    async function finalpdfGenerationTriplicates(sData, sStartDate, sEndDate, sSegment) {
+      return new Promise((resolve, reject) => {
+
+        const folderName = `C:\/Invoices\/${sStartDate.substring(4, 6)}${sStartDate.substring(0, 4)}${sSegment}\/Triplicates`;
+
+        try {
+          if (!fs.existsSync(folderName)) {
+            fs.mkdirSync(folderName, { recursive: true });
+          }
+        } catch (err) {
+          console.error(err);
+          reject(err);
+        }
+
+        sData.invoiceType = "TRIPLICATE FOR SUPPLIER";
+
+        let options = {
+          displayHeaderFooter: false,
+          format: "A4",
+          margin: { top: "30px", bottom: "30px", left: "30px", right: "30px" },
+          path: `${folderName}/${sData.DocumentNumber}.PDF`
+        };
+        let sPDF = pdfMaster.generatePdf("template.hbs", sData, options);
+        updateFolderLocation(sData.DocumentNumber, `${folderName}/${sData.DocumentNumber}.PDF`, "T");
+        resolve(sPDF);
+        
+      });
+    }
+
+    async function updateFolderLocation(DocumentNumber, folderName, sType){
+      let sqlquery;
+      if(sType == "O"){
+        sqlquery = `UPDATE invoice_generation_table SET InvoicePdfStatus = 'X', InvoicePdfLocation = '${folderName}' WHERE DocumentNumber = '${DocumentNumber}';`;
+      }else if(sType == "D"){
+        sqlquery = `UPDATE invoice_generation_table SET InvoicePdfDuplicateStatus = 'X', InvoicePdfDuplicateLocation = '${folderName}' WHERE DocumentNumber = '${DocumentNumber}';`;
+      }else{
+        sqlquery = `UPDATE invoice_generation_table SET InvoicePdfTriplicateStatus = 'X', InvoicePdfTriplicateLocation = '${folderName}' WHERE DocumentNumber = '${DocumentNumber}';`;       
+      }
+      
     
         return new Promise((resolve, reject) => {
           connection.query(sqlquery, (err, result) => {
@@ -380,7 +448,9 @@ async function getData(startDate, endDate, sSegment) {
       getData(req.params.startDate, req.params.endDate, req.params.segment).then(async (data) => {
         for(var i = 0; i< data.length; i++){
           //console.log(data[i])
-          await finalpdfGeneration(data[i], req.params.startDate, req.params.endDate, req.params.segment);
+          await finalpdfGenerationOriginals(data[i], req.params.startDate, req.params.endDate, req.params.segment);
+          await finalpdfGenerationDuplicates(data[i], req.params.startDate, req.params.endDate, req.params.segment);
+          await finalpdfGenerationTriplicates(data[i], req.params.startDate, req.params.endDate, req.params.segment);
         }
           await updateInvoiceMonthlyStatus(req.params.startDate, req.params.segment);
         
