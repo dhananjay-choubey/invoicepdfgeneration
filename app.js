@@ -49,6 +49,7 @@ async function getInvoiceData(startDate, endDate, sSegment) {
     customer_master_table.regioncode as customerregioncode,
     customer_master_table.regiondesc as customerregiondesc,
     customer_master_table.pannum as customerpannum,
+    customer_master_table.customer_cin as customercin,
     vendor_master_table.address as vendoraddress,
     vendor_master_table.gstinnum as vendorgstinnum,
     vendor_master_table.pannum as vendorpannum,
@@ -57,7 +58,8 @@ async function getInvoiceData(startDate, endDate, sSegment) {
     vendor_master_table.statedesc as vendorstatedesc,
     vendor_master_table.regioncode as vendorregioncode,
     vendor_master_table.regioncode as vendorregiondesc,
-    vendor_master_table.city as vendorcity
+    vendor_master_table.city as vendorcity,
+    vendor_master_table.vendor_cin as vendorcin
     
     FROM invoice_generation_table
     LEFT OUTER JOIN customer_master_table ON invoice_generation_table.CustomerCode = customer_master_table.branchcode
@@ -216,6 +218,7 @@ async function getData(startDate, endDate, sSegment) {
           sItem.vendorStateCode = invoiceData[i].vendorstate;
           sItem.vendorPIN = invoiceData[i].vendorpincode;
           sItem.vendorGSTIN = invoiceData[i].vendorgstinnum;
+          sItem.vendorCIN = invoiceData[i].vendorcin;
           sItem.vendorPAN = invoiceData[i].vendorpannum;
           sItem.branchName = invoiceData[i].CustomerName;
           sItem.branchAddress = invoiceData[i].customeraddress;
@@ -225,6 +228,7 @@ async function getData(startDate, endDate, sSegment) {
           sItem.branchStateCode = invoiceData[i].customerregioncode;
           sItem.branchGSTIN = invoiceData[i].customergstinnum;
           sItem.branchPAN = invoiceData[i].customerpannum;
+          sItem.branchCIN = invoiceData[i].customercin;
           sItem.endCustomerName = invoiceData[i].ShipToPartyName;
           sItem.subTotal = (parseFloat(invoiceData[i].SubTotal)).toFixed(2);
           sItem.CGST =  (parseFloat(invoiceData[i].CGST)).toFixed(2);
