@@ -42,6 +42,7 @@ async function getInvoiceData(startDate, endDate, sSegment) {
     invoice_generation_table.GrandTotal as GrandTotal,
     invoice_generation_table.regionCode as regionCode,
     invoice_generation_table.segmentCode as segmentCode,
+    invoice_generation_table.UGST as UGST,
     customer_master_table.branchname as CustomerName,
     customer_master_table.gstinnum as customergstinnum,
     customer_master_table.address as customeraddress,
@@ -231,15 +232,46 @@ async function getData(startDate, endDate, sSegment) {
           sItem.branchCIN = invoiceData[i].customercin;
           sItem.endCustomerName = invoiceData[i].ShipToPartyName;
           sItem.subTotal = (parseFloat(invoiceData[i].SubTotal)).toFixed(2);
-          sItem.CGST =  (parseFloat(invoiceData[i].CGST)).toFixed(2);
-          sItem.SGST = (parseFloat(invoiceData[i].SGST)).toFixed(2);
-          sItem.IGST = (parseFloat(invoiceData[i].IGST)).toFixed(2);
+            if(invoiceData[i].CGST == 0 || invoiceData[i].CGST == "0.00" || invoiceData[i].CGST == "0.0" || invoiceData[i].CGST == "" || invoiceData[i].CGST == " " || invoiceData[i].CGST == undefined){
+              sItem.CGST =  "0.00";
+            }else{
+              sItem.CGST =  (parseFloat(invoiceData[i].CGST)).toFixed(2);
+            }
+
+            if(isNaN(parseFloat(sItem.CGST))){
+              sItem.CGST = 0;
+            }
+
+          if(invoiceData[i].IGST == 0 || invoiceData[i].IGST == "0.00" || invoiceData[i].IGST == "0.0" || invoiceData[i].IGST == "" || invoiceData[i].IGST == " " || invoiceData[i].IGST == undefined){
+            sItem.IGST =  "0.00";
+          }else{
+            sItem.IGST = (parseFloat(invoiceData[i].IGST)).toFixed(2);
+          }
+
+          if(isNaN(parseFloat(sItem.IGST))){
+            sItem.IGST = 0;
+          }
+          
+          if(invoiceData[i].SGST == 0 || invoiceData[i].SGST == "0.00" || invoiceData[i].SGST == "0.0" || invoiceData[i].SGST == "" || invoiceData[i].SGST == " " || invoiceData[i].SGST == undefined){
+            if(invoiceData[i].UGST == 0 || invoiceData[i].UGST == "0.00" || invoiceData[i].UGST == "0.0" || invoiceData[i].UGST == "" || invoiceData[i].UGST == " " || invoiceData[i].UGST == undefined){
+              sItem.SGST = "0.00";
+            }else{
+              sItem.SGST = (parseFloat(invoiceData[i].UGST)).toFixed(2);
+            }
+          }else{
+            sItem.SGST = (parseFloat(invoiceData[i].SGST)).toFixed(2);
+          }
+
+          if(isNaN(parseFloat(sItem.SGST))){
+            sItem.SGST = 0;
+          }
+          
           sItem.roundOff = (parseFloat(invoiceData[i].RoundOff)).toFixed(2);
           sItem.totalDiscount = "0.00";
           sItem.GrandTotal = (parseFloat(invoiceData[i].GrandTotal)).toFixed(2);
           sItem.totalInvoiceValueInFigures = (parseFloat(invoiceData[i].GrandTotal)).toFixed(2);
           sItem.totalInvoiceValueInWords = withDecimal((parseFloat(invoiceData[i].GrandTotal)).toFixed(2));
-          sItem.taxAmountInWords = withDecimal((parseFloat(invoiceData[i].CGST) + parseFloat(invoiceData[i].SGST) + parseFloat(invoiceData[i].IGST)).toFixed(2))
+          sItem.taxAmountInWords = withDecimal((parseFloat(sItem.CGST) + parseFloat(sItem.SGST) + parseFloat(sItem.IGST)).toFixed(2))
           // sItem.bankName
           // sItem.accountNumber
           // sItem.branchIFSCCode
@@ -276,14 +308,57 @@ async function getData(startDate, endDate, sSegment) {
               sMaterialHTML.push(a);
               srNo++;
               sTotalUnit = sTotalUnit + parseInt(invoiceMasterData[j].Quantity);
-              var taxPercentAmount = (parseFloat(invoiceMasterData[j].Spare_Value) * 0.09).toFixed(2);
+              var CGSTPercentage;
+              var SGSTPercentage;
+              var IGSTPercentage;
+
+              if(invoiceMasterData[j].CGST_Percentage == 0 || invoiceMasterData[j].CGST_Percentage == "0.00" || invoiceMasterData[j].CGST_Percentage == "0.0" || invoiceMasterData[j].CGST_Percentage == "" || invoiceMasterData[j].CGST_Percentage == " " || invoiceMasterData[j].CGST_Percentage == undefined){
+                CGSTPercentage = 0;
+              }else{
+                CGSTPercentage = parseFloat(invoiceMasterData[j].CGST_Percentage).toFixed(2);
+              }
+
+              if(isNaN(CGSTPercentage)){
+                CGSTPercentage = 0;
+              }
+
+              if(invoiceMasterData[j].SGST_Percentage == 0 || invoiceMasterData[j].SGST_Percentage == "0.00" || invoiceMasterData[j].SGST_Percentage == "0.0" || invoiceMasterData[j].SGST_Percentage == "" || invoiceMasterData[j].SGST_Percentage == " " || invoiceMasterData[j].SGST_Percentage == undefined){
+                if(invoiceMasterData[j].UGST_Percentage == 0 || invoiceMasterData[j].UGST_Percentage == "0.00" || invoiceMasterData[j].UGST_Percentage == "0.0" || invoiceMasterData[j].UGST_Percentage == "" || invoiceMasterData[j].UGST_Percentage == " " || invoiceMasterData[j].UGST_Percentage == undefined){
+                  SGSTPercentage = 0;
+                }else{
+                  SGSTPercentage = parseFloat(invoiceMasterData[j].UGST_Percentage).toFixed(2);
+                }
+              }else{
+                SGSTPercentage = parseFloat(invoiceMasterData[j].SGST_Percentage).toFixed(2);
+              }
+
+              if(isNaN(SGSTPercentage)){
+                SGSTPercentage = 0;
+              }
+
+              if(invoiceMasterData[j].IGST_Percentage == 0 || invoiceMasterData[j].IGST_Percentage == "0.00" || invoiceMasterData[j].IGST_Percentage == "0.0" || invoiceMasterData[j].IGST_Percentage == "" || invoiceMasterData[j].IGST_Percentage == " " || invoiceMasterData[j].IGST_Percentage == undefined){
+                IGSTPercentage = 0;
+              }else{
+                IGSTPercentage = parseFloat(invoiceMasterData[j].IGST_Percentage).toFixed(2);
+              }
+
+              if(isNaN(IGSTPercentage)){
+                IGSTPercentage = 0;
+              }
+
+              var taxPercentAmountCGST = (parseFloat(invoiceMasterData[j].Spare_Value) * (CGSTPercentage / 100)).toFixed(2);
+              var taxPercentAmountSGST = (parseFloat(invoiceMasterData[j].Spare_Value) * (SGSTPercentage / 100)).toFixed(2);
+              var taxPercentAmountIGST = (parseFloat(invoiceMasterData[j].Spare_Value) * (IGSTPercentage / 100)).toFixed(2);
     
               var b = {
                 HSN: invoiceMasterData[j].HSN,
                 taxableValue: invoiceMasterData[j].Spare_Value,
-                CGST: taxPercentAmount,
-                SGST: taxPercentAmount,
-                IGST: "0.00"
+                CGSTPercentage: CGSTPercentage,
+                CGST: taxPercentAmountCGST,
+                SGSTPercentage: SGSTPercentage,
+                SGST: taxPercentAmountSGST,
+                IGSTPercentage: IGSTPercentage,
+                IGST: taxPercentAmountIGST
     
               }
     
@@ -298,8 +373,11 @@ async function getData(startDate, endDate, sSegment) {
                   res[value.HSN] = {
                       taxableValue: 0,
                       HSN: value.HSN,
+                      CGSTPercentage: value.CGSTPercentage,
                       CGST: 0,
+                      SGSTPercentage: value.SGSTPercentage,
                       SGST: 0,
+                      IGSTPercentage: value.IGSTPercentage,
                       IGST: 0
                   };
                   result.push(res[value.HSN])

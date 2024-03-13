@@ -262,8 +262,7 @@
                         <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">GSTIN/UIN
                             :{{endCustomerGSTIN}}</p>
                         <p></p>
-                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;">Contact :
-                            {{endCustomerContactNumber}}</p>
+                        <p class="s4" style="padding-top: 4pt;padding-left: 4pt;text-align: left;"></p>
                         <p></p>
                     </td>
                 </tr>
@@ -578,19 +577,19 @@
                     <p class="s4">{{this.taxableValue}}</p>
                 </td>
                 <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
-                    <p class="s4">9%</p>
+                    <p class="s4">{{this.CGSTPercentage}}%</p>
                 </td>
                 <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
                     <p class="s4">{{this.CGST}}</p>
                 </td>
                 <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
-                    <p class="s4">9%</p>
+                    <p class="s4">{{this.SGSTPercentage}}%</p>
                 </td>
                 <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
                     <p class="s4">{{this.SGST}}</p>
                 </td>
                 <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
-                    <p class="s4">0%</p>
+                    <p class="s4">{{this.IGSTPercentage}}%</p>
                 </td>
                 <td class="thStyle" style="padding-top: 4pt;padding-right: 4pt;text-align: right;">
                     <p class="s4">{{this.IGST}}</p>

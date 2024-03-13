@@ -5,5 +5,5 @@ const {join} = require('path');
  */
 module.exports = {
   // Changes the cache location for Puppeteer.
-  cacheDirectory: join('C:\\Users\\IFB', '.cache', 'puppeteer'),
+  cacheDirectory: join('C:\\invoicepdfgeneration', '.cache', 'puppeteer'),
 };
