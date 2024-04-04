@@ -11,7 +11,8 @@ let connection = mysql.createConnection({
     host: "localhost",
     database: "franchiseeinvoicedb",
     user: "root",
-    password: "Root@2023"
+    password: "SPUinv1302@46",
+    port: 3306
     //password: "Saanvi355@"
 
   });
